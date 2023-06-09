@@ -110,17 +110,3 @@ for file in os.listdir(first_folder_session):
             np.save("C:/Users/carmi/Desktop/Biometria/SEED_IV Database/SEED_IV Database/dati/" + str(l[label_cont]) + "/matrice_" + str(n), x)
             n += 1
             label_cont += 1
-
-
-
-
-
-
-'''
-
-for matrix in x:
-    normalized_matrix = zscore(matrix, axis=0)
-    normalized_matrices.append(normalized_matrix)
-
-normalized_batch_x = np.array(normalized_matrices)
-'''
