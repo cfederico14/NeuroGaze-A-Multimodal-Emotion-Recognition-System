@@ -56,7 +56,6 @@ class NumpyDataLoader(Sequence):
 
         return data
 
-
 source = "C:/Users/carmi/Desktop/Biometria/SEED_IV Database/SEED_IV Database/dati/"
 dest = "C:/Users/carmi/Desktop/Biometria/SEED_IV Database/SEED_IV Database/splittati/"
 
@@ -70,6 +69,9 @@ for dir in os.listdir(dest + "train"):
     os.makedirs(dest + "test/" + dir)
     for file in to_move:
         shutil.move(dest + "train/" + dir + "/" + file, dest + "test/" + dir + "/" + file)
+
+#Calcolo media e standard error per ognuno dei 20 canali sull'intero dataset
+
 mean = np.array([13.12549127, 11.93335623, 11.43988904, 10.71254144, 9.9640656,
                      13.12549127, 11.93335623, 11.43988904, 10.71254144, 9.9640656,
                      13.12549127, 11.93335623, 11.43988904, 10.71254144, 9.9640656,
@@ -81,16 +83,21 @@ std = np.array([12.15270327, 11.04254002, 10.57943663, 9.92019554, 9.26625739,
 
 train_loader = NumpyDataLoader(data_dir="C:/Users/carmi/Desktop/Biometria/SEED_IV Database/SEED_IV Database/splittati/train/", batch_size=128, preprocess=True, mean=mean, std=std)
 test_loader = NumpyDataLoader(data_dir="C:/Users/carmi/Desktop/Biometria/SEED_IV Database/SEED_IV Database/splittati/test/", batch_size=64, preprocess=True, mean=mean, std=std)
-model = Sequential()
 
+model = Sequential()
+#Crea un livello convoluzionale 2D che esegue la convoluzione su "un'immagine" di input.
+# Utilizzando un kernel di dimensione 3x3 e una funzione di attivazione "relu" per introdurre non linearità nei dati di output.
+# l'immagine di input ha una dimensione di 62x64 pixel con 20 canali (canali di immagini o caratteristiche).
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(62, 64, 20)))
+#crea un livello di pooling 2D che riduce la dimensione spaziale dell'immagine di input campionando i valori massimi in regioni specifiche.
+# Utilizzando una finestra di pooling 2x2 per ridurre la dimensione dell'immagine di input.
 model.add(MaxPooling2D((2, 2)))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(MaxPooling2D((2, 2)))
 
 model.add(Flatten())
 
-model.add(Dense(128, activation='relu'))
+model.add(Dense(128, activation='relu')) #conversione di dati in un vettore 1D e da uno o più livelli fully connected
 model.add(Dense(len(train_loader.class_list), activation='softmax'))
 
 optimizer = keras.optimizers.Adam(learning_rate=0.001)
@@ -164,5 +171,4 @@ def test(model, loss_fn, test_loader):
 
 
 test(model, loss_fn, test_loader)
-
 
