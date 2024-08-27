@@ -1,1 +1,8 @@
-New project of Emotion recognition from EEG signals, using SEED IV dataset
+In this project, we present a multimodal emotion recognition framework called EmotionMeter that combines brain waves and eye movements. 
+To increase the feasibility and wearability of EmotionMeter in real-world applications, we designa six-electrode placement above the ears to collect electroencephalography (EEG) signals.
+We combine EEG and eye movements for integrating the internal cognitive states and external subconscious behaviors of users to improve the recognition accuracy of EmotionMeter. 
+The experimental results demonstrate that modality fusion with multimodal deep neural networks can significantly enhance the performance compared with a single modality, and the best mean accuracy of 85.11%
+is achieved for four emotions (happy, sad, fear, and neutral). We explore the complementary characteristics of EEG and eye movements for their representational capacities and identify that EEG has the 
+advantage of classifying happy emotion, whereas eye movements outperform EEG in recognizing fear emotion. To investigate the stability of EmotionMeter over time, each subject performs the experiments three
+times on different days. EmotionMeter obtains a mean recognition accuracy of 72.39% across sessions with the six-electrode EEG and eye movement features. 
+These experimental results demonstrate the effectiveness of EmotionMeter within and between sessions.
